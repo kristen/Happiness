@@ -10,6 +10,8 @@
 
 @implementation FaceView
 
+@synthesize dataSource = _dataSource;
+
 @synthesize scale = _scale;
 
 #define DEFAULT_SCALE 0.90
@@ -74,17 +76,18 @@
 
     // draw face (circle)
     
-    CGPoint midPoint;
+    CGPoint midPoint;   // center of our bounds in our coordinate system
     midPoint.x = self.bounds.origin.x + self.bounds.size.width/2;
     midPoint.y = self.bounds.origin.y + self.bounds.size.height/2;
     
     CGFloat size = self.bounds.size.width/2;
     if (self.bounds.size.height < self.bounds.size.width) size = self.bounds.size.height/2;
-    size *= self.scale;
+    size *= self.scale; // scale is percentage of full view size
     
     CGContextSetLineWidth(context, 5.0);
     [[UIColor blueColor] setStroke];
-    [self drawCircleAtPoint:midPoint withRadius:size inContext:context];
+    
+    [self drawCircleAtPoint:midPoint withRadius:size inContext:context];    // head
     
     // draw eyes (2 circles)
     
@@ -96,9 +99,9 @@
     eyePoint.x = midPoint.x - size * EYE_H;
     eyePoint.y = midPoint.y - size * EYE_V;
     
-    [self drawCircleAtPoint:eyePoint withRadius:size * EYE_RADIUS inContext:context];
+    [self drawCircleAtPoint:eyePoint withRadius:size * EYE_RADIUS inContext:context];   // left eye
     eyePoint.x += size * EYE_H * 2;
-    [self drawCircleAtPoint:eyePoint withRadius:size * EYE_RADIUS inContext:context];
+    [self drawCircleAtPoint:eyePoint withRadius:size * EYE_RADIUS inContext:context];   // right eye
     
     //draw mouth
     
@@ -116,7 +119,9 @@
     CGPoint mouthCP2 = mouthEnd;
     mouthCP2.x -= MOUTH_H * size * 2/3;
     
-    float smile = 1.0;
+    float smile = [self.dataSource smileForFaceView:self];
+    if (smile < -1) smile = -1;
+    if (smile > 1) smile = 1;
     
     CGFloat smileOffset = MOUTH_SMILE * size * smile;
     mouthCP1.y += smileOffset;
@@ -124,7 +129,7 @@
     
     CGContextBeginPath(context);
     CGContextMoveToPoint(context, mouthStart.x, mouthStart.y);
-    CGContextAddCurveToPoint(context, mouthCP1.x, mouthCP2.y, mouthCP2.x, mouthCP2.y, mouthEnd.x, mouthEnd.y);
+    CGContextAddCurveToPoint(context, mouthCP1.x, mouthCP2.y, mouthCP2.x, mouthCP2.y, mouthEnd.x, mouthEnd.y);  // bezier curve
     CGContextStrokePath(context);
 }
 

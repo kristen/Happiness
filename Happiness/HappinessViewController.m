@@ -9,7 +9,7 @@
 #import "HappinessViewController.h"
 #import "FaceView.h"
 
-@interface HappinessViewController()
+@interface HappinessViewController() <FaceViewDataSource>
 @property (nonatomic, weak) IBOutlet FaceView *faceView;
 @end
 
@@ -29,6 +29,12 @@
     _faceView = faceView;
     // enable pinch gestures in the FaceView using its pinch: handler
     [self.faceView addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:self.faceView action:@selector(pinch:)]];
+    self.faceView.dataSource = self;
+}
+
+- (float)smileForFaceView:(FaceView *)sender
+{
+    return (self.happiness - 50) / 50.0;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
