@@ -64,7 +64,30 @@
     
     //draw mouth
     
+#define MOUTH_H 0.45
+#define MOUTH_V 0.40
+#define MOUTH_SMILE 0.25
     
+    CGPoint mouthStart;
+    mouthStart.x = midPoint.x - MOUTH_H * size;
+    mouthStart.y = midPoint.y + MOUTH_V * size;
+    CGPoint mouthEnd = mouthStart;
+    mouthEnd.x+= MOUTH_H * size * 2;
+    CGPoint mouthCP1 = mouthStart;
+    mouthCP1.x += MOUTH_H * size * 2/3;
+    CGPoint mouthCP2 = mouthEnd;
+    mouthCP2.x -= MOUTH_H * size * 2/3;
+    
+    float smile = 1.0;
+    
+    CGFloat smileOffset = MOUTH_SMILE * size * smile;
+    mouthCP1.y += smileOffset;
+    mouthCP2.y += smileOffset;
+    
+    CGContextBeginPath(context);
+    CGContextMoveToPoint(context, mouthStart.x, mouthStart.y);
+    CGContextAddCurveToPoint(context, mouthCP1.x, mouthCP2.y, mouthCP2.x, mouthCP2.y, mouthEnd.x, mouthEnd.y);
+    CGContextStrokePath(context);
 }
 
 
