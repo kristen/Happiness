@@ -10,6 +10,35 @@
 
 @implementation FaceView
 
+@synthesize scale = _scale;
+
+#define DEFAULT_SCALE 0.90
+
+- (CGFloat)scale
+{
+    if (!_scale) {
+        return DEFAULT_SCALE;
+    }
+    return _scale;
+}
+
+- (void)setScale:(CGFloat)scale
+{
+    if (_scale != scale) {
+        _scale = scale;
+        [self setNeedsDisplay];
+    }
+}
+
+- (void)pinch:(UIPinchGestureRecognizer *)gesture
+{
+    if ((gesture.state == UIGestureRecognizerStateChanged) ||
+        (gesture.state == UIGestureRecognizerStateEnded)) {
+        self.scale *= gesture.scale;
+        gesture.scale = 1;      // resets scale to 1
+    }
+}
+
 - (void)setup
 {
     
@@ -39,8 +68,6 @@
     UIGraphicsPopContext();
 }
 
-#define DEFAULT_SIZE 0.90
-
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -53,7 +80,7 @@
     
     CGFloat size = self.bounds.size.width/2;
     if (self.bounds.size.height < self.bounds.size.width) size = self.bounds.size.height/2;
-    size *= DEFAULT_SIZE;
+    size *= self.scale;
     
     CGContextSetLineWidth(context, 5.0);
     [[UIColor blueColor] setStroke];
