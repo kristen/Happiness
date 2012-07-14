@@ -15,6 +15,7 @@
 		BB56186915B2246000FBC900 /* HappinessAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB56186815B2246000FBC900 /* HappinessAppDelegate.m */; };
 		BB56186C15B2246000FBC900 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB56186A15B2246000FBC900 /* MainStoryboard.storyboard */; };
 		BB56186F15B2246000FBC900 /* HappinessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB56186E15B2246000FBC900 /* HappinessViewController.m */; };
+		BB56187815B2269B00FBC900 /* FaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB56187715B2269B00FBC900 /* FaceView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,8 @@
 		BB56186B15B2246000FBC900 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		BB56186D15B2246000FBC900 /* HappinessViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HappinessViewController.h; sourceTree = "<group>"; };
 		BB56186E15B2246000FBC900 /* HappinessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HappinessViewController.m; sourceTree = "<group>"; };
+		BB56187615B2269B00FBC900 /* FaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceView.h; sourceTree = "<group>"; };
+		BB56187715B2269B00FBC900 /* FaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +80,8 @@
 		BB56185E15B2246000FBC900 /* Happiness */ = {
 			isa = PBXGroup;
 			children = (
+				BB56187615B2269B00FBC900 /* FaceView.h */,
+				BB56187715B2269B00FBC900 /* FaceView.m */,
 				BB56186715B2246000FBC900 /* HappinessAppDelegate.h */,
 				BB56186815B2246000FBC900 /* HappinessAppDelegate.m */,
 				BB56186A15B2246000FBC900 /* MainStoryboard.storyboard */,
@@ -165,6 +170,7 @@
 				BB56186515B2246000FBC900 /* main.m in Sources */,
 				BB56186915B2246000FBC900 /* HappinessAppDelegate.m in Sources */,
 				BB56186F15B2246000FBC900 /* HappinessViewController.m in Sources */,
+				BB56187815B2269B00FBC900 /* FaceView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
