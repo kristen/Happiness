@@ -21,18 +21,19 @@
 - (void)setHappiness:(int)happiness
 {
     _happiness = happiness;
-    [self.faceView setNeedsDisplay];
+    [self.faceView setNeedsDisplay];    // any time our Model changes, redraw our View
 }
 
 - (void)setFaceView:(FaceView *)faceView
 {
     _faceView = faceView;
+    // enable pinch gestures in the FaceView using its pinch: handler
     [self.faceView addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:self.faceView action:@selector(pinch:)]];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
-    return YES;
+    return YES; // supports all orientations
 }
 
 @end

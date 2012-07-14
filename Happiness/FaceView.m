@@ -17,7 +17,7 @@
 - (CGFloat)scale
 {
     if (!_scale) {
-        return DEFAULT_SCALE;
+        return DEFAULT_SCALE;   // don't allow 0 scale
     }
     return _scale;
 }
@@ -26,7 +26,7 @@
 {
     if (_scale != scale) {
         _scale = scale;
-        [self setNeedsDisplay];
+        [self setNeedsDisplay]; // any time our scale changes, call redraws
     }
 }
 
@@ -34,27 +34,27 @@
 {
     if ((gesture.state == UIGestureRecognizerStateChanged) ||
         (gesture.state == UIGestureRecognizerStateEnded)) {
-        self.scale *= gesture.scale;
-        gesture.scale = 1;      // resets scale to 1
+        self.scale *= gesture.scale;    // adjusts our scale
+        gesture.scale = 1;      // resets gesture scale to 1 (so future changes are incremental, not cumulative)
     }
 }
 
 - (void)setup
 {
     
-    self.contentMode = UIViewContentModeRedraw;
+    self.contentMode = UIViewContentModeRedraw; // if our bounds change, redraw ourselves
 }
 
 - (void)awakeFromNib
 {
-    [self setup];
+    [self setup];   // get initialized when we come out of a storyboard
 }
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setup];
+        [self setup];   // get initialized if someone uses alloc/initWithFrame: to create us
     }
     return self;
 }
@@ -63,7 +63,7 @@
 {
     UIGraphicsPushContext(context);
     CGContextBeginPath(context);
-    CGContextAddArc(context, p.x, p.y, radius, 0, 2*M_PI, YES);
+    CGContextAddArc(context, p.x, p.y, radius, 0, 2*M_PI, YES); // 360 degree (0 to 2pi) arc
     CGContextStrokePath(context);
     UIGraphicsPopContext();
 }
